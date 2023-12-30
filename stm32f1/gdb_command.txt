@@ -1,0 +1,2 @@
+'/media/nvme1TB/Schulungen/rust_training/embassy/examples/stm32f1/target/thumbv7m-none-eabi/debug/blinky/thumbv7m-none-eabi/debug/blinky'
+target extended-remote :1337

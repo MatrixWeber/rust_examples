@@ -10,3 +10,5 @@
 fn main() {
     println!("Hello, world!");
 }
+
+// execute command "cargo doc --open"
