@@ -4,6 +4,6 @@ fn main() {
     println!("{}", s1); // Fehler: s1 wurde bereits verschoben
 }
 
-fn takes_ownership(s: String) {
-    println!("{s}");
-}
+fn takes_ownership(s: String) { // ownership wird an die Variable "s" übergeben
+    println!("{s}"); // ownership wird an die Variable "s" übergeben
+} // Variable "s", ursprünglich s1, wird aufgeräumt
