@@ -17,7 +17,7 @@ fn main() {
 fn pattern_matching(current_state: State) {
     // Pattern Matching, um abhängig vom Zustand unterschiedliche Aktionen auszuführen
     match current_state {
-        State::Idle(counter) => println!("Das System ist {} im Leerlauf gewesen.", counter.unwrap()),
+        State::Idle(counter) => println!("Das System ist {} mal im Leerlauf gewesen.", counter.unwrap()),
         State::Running(s) => println!("Das System wurde vom {} gestartet!", s),
         State::Paused(seconds) => println!("Das System ist pausiert für {}s.", seconds),
         State::Finished(error) => println!("Das System wurde mit dem Fehler '{}' beendet.",
