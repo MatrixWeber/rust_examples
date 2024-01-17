@@ -8,17 +8,17 @@ struct DownCounter {
     value: u8,
 }
 
-trait Countable {
+trait Count {
     fn count(&mut self);
 }
 
-impl Countable for UpCounter {
+impl Count for UpCounter {
     fn count(&mut self) {
         self.value += 1;
     }
 }
 
-impl Countable for DownCounter {
+impl Count for DownCounter {
     fn count(&mut self) {
         self.value -= 1;
     }
@@ -34,7 +34,7 @@ fn main() {
         up_counter.count();
         down_counter.count();
     }
-    // Den aktuellen Counter Werte ausgeben
+    // Die aktuellen Counter Werte ausgeben
     println!("{}: hat folgenden Wert erreicht {}", up_counter.name, up_counter.value);
     println!("{}: hat folgenden Wert erreicht {}", down_counter.name, down_counter.value);
 }

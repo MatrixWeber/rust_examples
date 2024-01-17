@@ -10,7 +10,7 @@ struct DownCounter {
     limit: u8,
 }
 
-trait Countable {
+trait Count {
     // default implementation
     fn count(&mut self)
     {
@@ -21,21 +21,21 @@ trait Countable {
     fn count_with_limit(&mut self);
 }
 
-impl Countable for UpCounter {
+impl Count for UpCounter {
     fn count_with_limit(&mut self) {
         self.value += 1;
-        if self.value >= self.limit {
-            println!("{}: limit was reached {}",
+        if self.value > self.limit {
+            println!("{}: on limit {}",
                      self.name, self.limit);
         }
     }
 }
 
-impl Countable for DownCounter {
+impl Count for DownCounter {
     fn count_with_limit(&mut self) {
         self.value -= 1;
-        if self.value <= self.limit {
-            println!("{}: limit was reached {}",
+        if self.value < self.limit {
+            println!("{}: on limit {}",
                      self.name, self.limit);
         }
     }
