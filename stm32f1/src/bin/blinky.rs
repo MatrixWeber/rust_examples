@@ -2,10 +2,9 @@
 #![no_main]
 #![feature(type_alias_impl_trait)]
 
-#[path = "my_work/limit_counter.rs"]
-mod limit_counter;
+mod counters;
 
-use limit_counter::LimitCounter;
+use crate::counters::LimitCounter;
 use defmt::*;
 use embassy_executor::Spawner;
 use embassy_stm32::gpio::{AnyPin, Level, Output, Pin, Speed};

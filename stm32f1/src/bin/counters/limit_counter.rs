@@ -1,7 +1,7 @@
 pub struct LimitCounter
 {
     value: usize,
-    limit: usize
+    limit: usize,
 }
 
 impl LimitCounter {
@@ -13,9 +13,7 @@ impl LimitCounter {
         if self.value < self.limit
         {
             self.value += 1;
-        }
-        else
-        {
+        } else {
             self.reset();
         }
     }
