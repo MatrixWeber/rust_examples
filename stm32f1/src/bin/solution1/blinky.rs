@@ -1,18 +1,17 @@
 #![no_std]
 #![no_main]
-#![feature(type_alias_impl_trait)]
 
-mod counters;
+#[path = "counters/limit_counter.rs"]
+mod limit_counter;
 
-use crate::counters::LimitCounter;
+use limit_counter::LimitCounter;
 use defmt::*;
 use embassy_executor::Spawner;
-use embassy_stm32::gpio::{AnyPin, Level, Output, Pin, Speed};
+use embassy_stm32::gpio::{Level, Output, Speed};
 use embassy_time::Timer;
 use {defmt_rtt as _, panic_probe as _};
 
 const BLINK_INTERVAL: u64 = 1000;
-
 const COUNTER_LIMIT: usize = 60;
 
 #[embassy_executor::main]
@@ -37,17 +36,17 @@ dass diese Objekte für die gesamte Dauer des Programms leben. Wenn Sie eine and
 hätte der Compiler möglicherweise Bedenken, dass die Output Objekte zerstört werden könnten,
 bevor die Referenzen auf sie aufgehoben werden, was zu unsicherem Verhalten führen könnte.
  */
-pub fn init_leds() -> [Output<'static, AnyPin>; LED_COUNT] {
+pub fn init_leds() -> [Output<'static>; LED_COUNT] {
     let p = embassy_stm32::init(Default::default());
     let mut leds = [
-        Output::new(p.PB8.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB9.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB10.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB11.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB12.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB13.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB14.degrade(), Level::High, Speed::Low),
-        Output::new(p.PB15.degrade(), Level::High, Speed::Low),
+        Output::new(p.PB8, Level::High, Speed::Low),
+        Output::new(p.PB9, Level::High, Speed::Low),
+        Output::new(p.PB10, Level::High, Speed::Low),
+        Output::new(p.PB11, Level::High, Speed::Low),
+        Output::new(p.PB12, Level::High, Speed::Low),
+        Output::new(p.PB13, Level::High, Speed::Low),
+        Output::new(p.PB14, Level::High, Speed::Low),
+        Output::new(p.PB15, Level::High, Speed::Low),
     ];
     // alle ausschalten
     leds.iter_mut().for_each(|led| led.set_low());
@@ -77,7 +76,7 @@ Es ist eine Art Kurzschreibweise für eine generische Lebensdauer und wird oft v
 wenn die genaue Lebensdauer unwichtig ist. Es bedeutet "irgendeine Lebensdauer" und wird vom Rust-Compiler durch
 die tatsächliche Lebensdauer ersetzt, die er durch seine Lebensdauer-Überprüfung ermittelt.
  */
-async fn blinking_loop(leds: &mut [Output<'_, AnyPin>; 8], limit_counter: &mut LimitCounter) {
+async fn blinking_loop(leds: &mut [Output<'_>; 8], limit_counter: &mut LimitCounter) {
     let counter_value = limit_counter.get_counter();
     info!("counter value: {}", counter_value);
     let counter_remainder = counter_value % leds.len();
@@ -93,7 +92,7 @@ async fn blinking_loop(leds: &mut [Output<'_, AnyPin>; 8], limit_counter: &mut L
     limit_counter.count();
 }
 
-async fn blink_led(led: &mut Output<'_, AnyPin>, duration_ms: u64) {
+async fn blink_led(led: &mut Output<'_>, duration_ms: u64) {
     led.set_high();
     Timer::after_millis(duration_ms).await;
     led.set_low();
