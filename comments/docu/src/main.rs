@@ -4,7 +4,7 @@
 ///
 /// ```rust
 /// fn main() {
-///     println!("Hallo, Welt!");
+///     println!("Hello, world!");
 /// }
 /// ```
 fn main() {
