@@ -31,3 +31,15 @@ fn main() {
     // Den aktuellen Zählerwert ausgeben
     println!("{}: hat folgenden Wert erreicht {}", timer.name, timer.get_value());
 }
+
+#[cfg(test)] // um nur beim Testen kompiliert zu werden
+mod tests {  // beachten Sie, dass die Tests im tests-Untermodul sind
+use super::*;
+    #[test]  // die #[test]-Annotation darf nicht fehlen.
+    fn count_test() {
+        let mut timer = Counter::new(String::from("Timer"), 10, 30);
+        assert_eq!(10, timer.get_value());
+        timer.count();
+        assert_eq!(11, timer.get_value());
+    }
+}
