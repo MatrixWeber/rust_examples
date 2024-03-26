@@ -32,7 +32,7 @@ fn main() {
     println!("{}: hat folgenden Wert erreicht {}", timer.name, timer.get_value());
 }
 
-#[cfg(test)] // um nur beim Testen kompiliert zu werden
+#[cfg(test)] // um nur fürs Testen kompiliert zu werden
 mod tests {  // beachten Sie, dass die Tests im tests-Untermodul sind
 use super::*;
     #[test]  // die #[test]-Annotation darf nicht fehlen.
